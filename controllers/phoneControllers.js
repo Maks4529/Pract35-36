@@ -1,6 +1,7 @@
 const _ = require('lodash');
-const {Phone} = require('./../models');
 const { literal, Op } = require('sequelize');
+const createHttpError = require('http-errors');
+const {Phone} = require('./../models');
 
 // CRUD
 module.exports.createPhone = async (req, res, next) => {
@@ -10,7 +11,8 @@ module.exports.createPhone = async (req, res, next) => {
         const createdPhone = await Phone.create(body);
 
         if (!createdPhone){
-            return res.status(400).send("Creation error!");
+            // return res.status(400).send("Creation error!");
+            next(createHttpError(400, "Creation error!"));
         };
 
         const preparedPhone = _.omit(createdPhone.get(), ['createdAt', 'updatedAt']);
