@@ -18,16 +18,6 @@ module.exports = {
       frequency_ghz: {
         type: Sequelize.FLOAT
       },
-      phone_id: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'phones',
-          key: 'id',
-        },
-        onDelete: 'RESTRICT',
-        onUpdate: 'CASCADE',
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

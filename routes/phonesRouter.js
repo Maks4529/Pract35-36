@@ -20,4 +20,7 @@ phonesRouter.get('/older-than/:year', phoneControllers.getPhonesOlderThan);
 phonesRouter.patch('/year/:year', phoneControllers.updatePhonesByYear);
 phonesRouter.delete('/year/:year', phoneControllers.deletePhonesByYear);
 
+//Phones with processors
+phonesRouter.get('/processors/:id', phoneControllers.getProcessorPhones);
+
 module.exports = phonesRouter;

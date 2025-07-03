@@ -4,19 +4,30 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Processor extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
+      Processor.hasMany(models.Phone, {
+        foreignKey: {
+          name: 'processorId',
+          allowNull: false,
+        },
+        onDelete: 'RESTRICT',
+        onUpdate: 'CASCADE',
+      })
     }
   }
   Processor.init({
-    model: DataTypes.STRING,
-    manufacturer: DataTypes.STRING,
-    frequencyGHz: DataTypes.FLOAT
+    model: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    manufacturer: {
+      type: DataTypes.STRING,
+      allowNull: false,
+  },
+    frequencyGHz: {
+      type:DataTypes.FLOAT,
+    field: 'frequency_ghz',
+  },
   }, {
     sequelize,
     modelName: 'Processor',

@@ -33,6 +33,10 @@ module.exports = {
         type: Sequelize.BOOLEAN,
         allowNull: false,
       },
+      processor_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE
@@ -44,6 +48,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Phones');
+    await queryInterface.dropTable('phones');
   }
 };

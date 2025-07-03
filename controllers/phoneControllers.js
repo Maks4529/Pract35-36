@@ -1,7 +1,7 @@
 const _ = require('lodash');
 const { literal, Op } = require('sequelize');
 const createHttpError = require('http-errors');
-const {Phone} = require('./../models');
+const {Phone, Processor} = require('./../models');
 
 // CRUD
 module.exports.createPhone = async (req, res, next) => {
@@ -202,6 +202,26 @@ module.exports.deletePhonesByYear = async (req, res, next) => {
         };
 
         res.status(204).end();
+    } catch (err) {
+        next(err);
+    }
+};
+
+module.exports.getProcessorPhones = async (req, res, next) => {
+    const {id} = req.params;
+
+    try {
+        const foundProcessor = await Processor.findByPk(id);
+
+        if (!foundProcessor){
+            return next(createHttpError(404, "Processor not found."));
+        };
+
+        const foundPhonesWithProcessor = await foundProcessor.getPhones({
+            raw: true,
+        });
+
+        res.status(200).send(foundPhonesWithProcessor);
     } catch (err) {
         next(err);
     }
