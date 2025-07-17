@@ -1,0 +1,1 @@
+export const PHONES_SLICE_NAME = "phones";
