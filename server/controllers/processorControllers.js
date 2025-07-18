@@ -10,7 +10,7 @@ module.exports.getProcessors = async (req, res, next) => {
       include: 'Phones',
     });
 
-    res.status(200).send(foundProcessors);
+    res.status(200).send({data: foundProcessors});
   } catch (err) {
     next(err);
   }

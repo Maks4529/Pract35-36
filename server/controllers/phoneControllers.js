@@ -20,7 +20,7 @@ module.exports.createPhone = async (req, res, next) => {
       'updatedAt',
     ]);
 
-    res.status(200).send(preparedPhone);
+    res.status(200).send({data: preparedPhone});
   } catch (err) {
     next(err);
   }
@@ -39,7 +39,7 @@ module.exports.getAllPhones = async (req, res, next) => {
       offset,
       order: [['yearOfManufacture', 'DESC']],
     });
-    res.status(200).send({ data: foundPhones });
+    res.status(200).send({data: foundPhones});
   } catch (err) {
     next(err);
   }
@@ -202,7 +202,7 @@ module.exports.updatePhonesByYear = async (req, res, next) => {
       _.omit(phone, ['createdAt', 'updatedAt'])
     );
 
-    res.status(200).send(preparedPhone);
+    res.status(200).send({data: preparedPhone});
   } catch (err) {
     next(err);
   }
@@ -248,7 +248,7 @@ module.exports.getProcessorPhones = async (req, res, next) => {
       raw: true,
     });
 
-    res.status(200).send(foundPhonesWithProcessor);
+    res.status(200).send({data: foundPhonesWithProcessor});
   } catch (err) {
     next(err);
   }
