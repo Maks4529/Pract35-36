@@ -30,7 +30,7 @@ module.exports.getAllPhones = async (req, res, next) => {
   const { limit, offset } = req.pagination;
 
   try {
-    const foundPhones = await Phone.findAll({
+    const foundPhones = await Phone.findAndCountAll({
       raw: true,
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
@@ -39,7 +39,8 @@ module.exports.getAllPhones = async (req, res, next) => {
       offset,
       order: [['yearOfManufacture', 'DESC']],
     });
-    res.status(200).send({data: foundPhones});
+    const {count, rows} = foundPhones;
+    res.status(200).send({count, rows});
   } catch (err) {
     next(err);
   }

@@ -8,3 +8,5 @@ export const getProcessors = () => httpClient.get('/processors');
 export const createPhone = (value) => httpClient.post('/phones', value);
 
 export const getPhones = (page) => httpClient.get(`/phones?${queryString.stringify(page)}`);
+
+export const deletePhone = (id) => httpClient.delete(`/phones/${id}`);
