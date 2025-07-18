@@ -5,6 +5,7 @@ import * as API from './../../api';
 const initialState = {
     phones: [],
     processors: [],
+    page: 1,
     isFetching: false,
     error: null,
 }
@@ -34,17 +35,22 @@ export const createPhoneThunk = createAsyncThunk(`${CONSTANTS.PHONES_SLICE_NAME}
 export const getPhonesThunk = createAsyncThunk(`${CONSTANTS.PHONES_SLICE_NAME}/get/phones`, 
     async (payload, {rejectWithValue}) => {
         try {
-           const {data: {data}} = await API.getPhones();
+           const {data: {data}} = await API.getPhones(payload);
            return data; 
         } catch (err) {
             return rejectWithValue({errors: err.response.data});
         };
     }
 );
-
+ 
 const phonesSlice = createSlice({
     name: CONSTANTS.PHONES_SLICE_NAME,
     initialState,
+    reducers: {
+        changePage: (state, {payload}) => {
+            state.page = payload;
+        },
+    },
     extraReducers: builder => {
         builder.addCase(getProcessorsThunk.pending, state => {
             state.isFetching = true;
@@ -91,5 +97,7 @@ const phonesSlice = createSlice({
 });
 
 const {reducer, actions} = phonesSlice;
+
+export const {changePage} = actions;
 
 export default reducer;

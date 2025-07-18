@@ -7,7 +7,6 @@ module.exports.getProcessors = async (req, res, next) => {
       attributes: {
         exclude: ['createdAt', 'updatedAt'],
       },
-      include: 'Phones',
     });
 
     res.status(200).send({data: foundProcessors});

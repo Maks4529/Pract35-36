@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
 import PhoneForm from "../../components/PhoneForm";
 
 function CreatePhonePage() {
   return (
-    <div><PhoneForm /></div>
+    <div>
+      <Link to='/' exact>Home</Link>
+      <PhoneForm />
+    </div>
   )
 }
 

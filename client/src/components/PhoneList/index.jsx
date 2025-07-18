@@ -1,12 +1,23 @@
 import { connect } from "react-redux";
-import { getProcessorsThunk, getPhonesThunk } from "./../../store/slices/phonesSlice";
+import { getProcessorsThunk, getPhonesThunk, changePage } from "./../../store/slices/phonesSlice";
 import { useEffect } from "react";
 
-function PhoneList({phones, processors, isFetching, error, getProcessors, getPhones}) {
+function PhoneList({phones, processors, page, isFetching, error, getProcessors, getPhones, changePage}) {
   useEffect(() => {
     getProcessors();
-    getPhones();
-  }, [])
+  }, []);
+
+  useEffect(() => {
+    getPhones(page);
+  }, [page]);
+
+  const nextPage = () => {
+    if (phones.length === 4) changePage(page + 1);
+  };
+
+  const backPage = () => {
+    if (page > 1) changePage(page - 1);
+  };
 
   return (
     <>
@@ -16,9 +27,13 @@ function PhoneList({phones, processors, isFetching, error, getProcessors, getPho
             <h3>{ph.brand}</h3>
             <h4>{ph.model}</h4>
             <p>{ph.yearOfManufacture}</p>
+            <p>{processors.find(pr => pr.id === ph.processorId)?.model}</p>
+            <button onClick={() => {}}>Delete</button>
           </li>
         )}
       </ul>
+      <button onClick={backPage}>{'<'}</button>
+      <button onClick={nextPage}>{'>'}</button>
     </>
   )
 }
@@ -27,7 +42,8 @@ const mapStateToProps = ({phonesData}) => phonesData;
 
 const mapDispatchToProps = (dispatch) => ({
   getProcessors: () => dispatch(getProcessorsThunk()),
-  getPhones: () => dispatch(getPhonesThunk()),
+  getPhones: (page) => dispatch(getPhonesThunk({page})),
+  changePage: (newPage) => dispatch(changePage(newPage)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps) (PhoneList);
