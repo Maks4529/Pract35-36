@@ -1,20 +1,22 @@
 import { Link } from "react-router-dom";
+import styles from './HomePage.module.sass';
 
 function HomePage () {
   return (
-    <>
-      <h1>Main Page</h1>
-      <nav>
-        <ul>
-          <li>
-            <Link to='/create'>Create phone</Link>
+    <div className={styles.homePage}>
+      <h1>Phone database</h1>
+      <nav className={styles.navMenu}>
+        <ul className={styles.menuList}>
+          <li className={styles.menuItem}>
+            <Link className={styles.btn} to='/create'>Create phone</Link>
           </li>
-          <li>
-            <Link to='/phones'>Phones</Link>
+          <li className={styles.menuItem}>
+            <Link className={styles.btn} to='/phones'>Phones</Link>
           </li>
         </ul>
       </nav>
-    </>
+      <p className={styles.text}>Search for the desired phone model and add new devices to the database</p>
+    </div>
   )
 }
 
